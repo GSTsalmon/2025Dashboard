@@ -30,7 +30,7 @@ filtered_DOdata <- na.omit(DOdata)
 
 DOplot<- ggplot(filtered_DOdata, aes(x = Date, y = DO, colour = site, shape = site)) +
   geom_point(position = position_jitter(h = 0.1, w = 0.1), alpha = 0.5, size = 1.1) +
-  scale_x_datetime(date_labels = "%e-%b", date_breaks = "3 day") +
+  scale_x_datetime(date_labels = "%e-%b", date_breaks = "1 day") +
   xlab("") + ylim(0,25) +
   ylab("Dissolved Oxygen (mg/l)") +
   #facet_wrap(~ Year, ncol = 1, scales = "free_x") +
@@ -59,8 +59,8 @@ filtered_pH <- na.omit(data)
 
 pHPlot<- ggplot(data=filtered_pH,aes(x=Date, y=pH,
                                      colour=site, shape=site))+
-  geom_point(position=position_jitter(h=0.1, w=0.1), alpha = 0.5, size = 0.5)+
-  scale_x_datetime(date_labels= "%e-%b", date_breaks="5 days")+
+  geom_point(position=position_jitter(h=0.1, w=0.1), alpha = 0.5, size = 1.1)+
+  scale_x_datetime(date_labels= "%e-%b", date_breaks="1 days")+
   xlab("")+
   ylab("pH")+
   theme_classic() 
@@ -86,8 +86,8 @@ tempdata$Year <- lubridate::year(tempdata$Date)
 
 TempPlot<- ggplot(data=tempdata,aes(x=Date, y=Temp,
                                      colour=site, shape=site))+
-  geom_point(position=position_jitter(h=0.1, w=0.1), alpha = 0.5, size = 0.5)+
-  scale_x_datetime(date_labels= "%e-%b", date_breaks="5 days")+
+  geom_point(position=position_jitter(h=0.1, w=0.1), alpha = 0.5, size = 1.1)+
+  scale_x_datetime(date_labels= "%e-%b", date_breaks="1 days")+
   xlab("")+
   ylab("Temperature") +
   theme_classic() 
