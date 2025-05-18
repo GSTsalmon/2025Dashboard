@@ -31,7 +31,6 @@ data.table::setnames(DOSaysells2025,'Measured.DO....mg.L..W.DO.22225592.','DO')
 filtered_SaysellsDOdata <- na.omit(DOSaysells2025)
 
 
-
 DOTrestle2025 <- read.csv("https://raw.githubusercontent.com/GSTsalmon/2025Data/refs/heads/main/DOTrestle2025.csv")
 DOTrestle2025$Date.Time..PDT. <- as.POSIXct(DOTrestle2025$Date.Time..PDT., format = "%m/%d/%Y %H:%M")
 DOTrestle2025$Site <- "70.2 Trestle"
@@ -40,10 +39,30 @@ data.table::setnames(DOTrestle2025,'Temperature.....C..W.DO.22225611.','Temp')
 data.table::setnames(DOTrestle2025,'Measured.DO....mg.L..W.DO.22225611.','DO')
 filtered_TrestleDOdata <- na.omit(DOTrestle2025)
 
-MasterDO2025<- rbind(filtered_SaysellsDOdata,filtered_TrestleDOdata)
+DODSJUB2025 <- read.csv("https://raw.githubusercontent.com/GSTsalmon/2025Data/refs/heads/main/DODSJUB2025.csv")
+DODSJUB2025$Date.Time..PDT. <- as.POSIXct(DODSJUB2025$Date.Time..PDT., format = "%m/%d/%Y %H:%M")
+DODSJUB2025$Site <- "DS JUB"
+DODSJUB2025$Site<-factor(DODSJUB2025$Site,levels=c("Saysell's","70.2 Trestle","Skutz Falls", "US JUB", "DS JUB"))
+data.table::setnames(DODSJUB2025,'Temperature..W.DO.22097018....C','Temp')
+data.table::setnames(DODSJUB2025,'Measured.DO..W.DO.22097018...mg.L','DO')
+filtered_DODSJUB2025 <- na.omit(DODSJUB2025)
+
+
+DOUSJUB2025 <- read.csv("https://raw.githubusercontent.com/GSTsalmon/2025Data/refs/heads/main/DOUSJUB2025.csv")
+DOUSJUB2025$Date.Time..GMT.07.00 <- as.POSIXct(DOUSJUB2025$Date.Time..GMT.07.00, format = "%m/%d/%Y %H:%M")
+DOUSJUB2025$Site <- "US JUB"
+DOUSJUB2025$Site<-factor(DOUSJUB2025$Site,levels=c("Saysell's","70.2 Trestle","Skutz Falls", "US JUB", "DS JUB"))
+data.table::setnames(DOUSJUB2025,'Temp...C..LGR.S.N..22000862..SEN.S.N..22000862.','Temp')
+data.table::setnames(DOUSJUB2025,'DO.conc..mg.L..LGR.S.N..22000862..SEN.S.N..22000862.','DO')
+data.table::setnames(DOUSJUB2025,'Date.Time..GMT.07.00','Date.Time..PDT.')
+DOUSJUB2025 <- DOUSJUB2025[c(1, 2, 4,3,5)]
+filtered_DOUSJUB2025 <- na.omit(DOUSJUB2025)
+
+
+MasterDO2025<- rbind(filtered_SaysellsDOdata,filtered_TrestleDOdata,filtered_DODSJUB2025,filtered_DOUSJUB2025)
 
 DOplot<- ggplot(MasterDO2025, aes(x = Date.Time..PDT., y = DO, colour = Site, shape = Site)) +
-  geom_point(alpha = 0.8, size = 1.7) +
+  geom_point(alpha = 0.8, size = 0.9) +
   scale_x_datetime(date_labels = "%e-%b", date_breaks = "1 day") +
   xlab("") + ylim(0,25) +
   ylab("Dissolved Oxygen (mg/l)") +
@@ -63,6 +82,8 @@ pHSaysells2025$Date.Time..PDT. <- as.POSIXct(pHSaysells2025$Date.Time..PDT., for
 pHSaysells2025$Site <- "Saysell's"
 pHSaysells2025$Site<-factor(pHSaysells2025$Site,levels=c("Saysell's","70.2 Trestle","Skutz Falls", "US JUB", "DS JUB"))
 data.table::setnames(pHSaysells2025,'pH....pH.','pH')
+data.table::setnames(pHSaysells2025,'Temperature.....C.','Temp')
+data.table::setnames(pHSaysells2025,'Millivolts....mv.','mv')
 filtered_SaysellspHdata <- na.omit(pHSaysells2025)
 
 
@@ -71,9 +92,23 @@ pHTrestle2025$Date.Time..PDT. <- as.POSIXct(pHTrestle2025$Date.Time..PDT., forma
 pHTrestle2025$Site <- "70.2 Trestle"
 pHTrestle2025$Site<-factor(pHTrestle2025$Site,levels=c("Saysell's","70.2 Trestle","Skutz Falls", "US JUB", "DS JUB"))
 data.table::setnames(pHTrestle2025,'pH....pH.','pH')
+data.table::setnames(pHTrestle2025,'Temperature.....C.','Temp')
+data.table::setnames(pHTrestle2025,'Millivolts....mv.','mv')
 filtered_TrestlepHdata <- na.omit(pHTrestle2025)
 
-MasterpH2025<- rbind(filtered_SaysellspHdata,filtered_TrestlepHdata)
+pHDSJUB2025 <- read.csv("https://raw.githubusercontent.com/GSTsalmon/2025Data/refs/heads/main/pHDSJUB2025.csv")
+pHDSJUB2025$Date.Time..PDT. <- as.POSIXct(pHDSJUB2025$Date.Time..PDT., format = "%m/%d/%Y %H:%M")
+pHDSJUB2025$Site <- "DS JUB"
+pHDSJUB2025$Site<-factor(pHDSJUB2025$Site,levels=c("Saysell's","70.2 Trestle","Skutz Falls", "US JUB", "DS JUB"))
+filtered_pHDSJUB2025 <- na.omit(pHDSJUB2025)
+
+pHUSJUB2025 <- read.csv("https://raw.githubusercontent.com/GSTsalmon/2025Data/refs/heads/main/pHUSJUB2025.csv")
+pHUSJUB2025$Date.Time..PDT. <- as.POSIXct(pHUSJUB2025$Date.Time..PDT., format = "%m/%d/%Y %H:%M")
+pHUSJUB2025$Site <- "US JUB"
+pHUSJUB2025$Site<-factor(pHUSJUB2025$Site,levels=c("Saysell's","70.2 Trestle","Skutz Falls", "US JUB", "DS JUB"))
+filtered_pHUSJUB2025 <- na.omit(pHUSJUB2025)
+
+MasterpH2025<- rbind(filtered_SaysellspHdata,filtered_TrestlepHdata, filtered_pHDSJUB2025,filtered_pHUSJUB2025)
 
 
 pHPlot<- ggplot(data=MasterpH2025,aes(x=Date.Time..PDT., y=pH,
