@@ -108,7 +108,7 @@ pHUSJUB2025$Site <- "US JUB"
 pHUSJUB2025$Site<-factor(pHUSJUB2025$Site,levels=c("Saysell's","70.2 Trestle","Skutz Falls", "US JUB", "DS JUB"))
 filtered_pHUSJUB2025 <- na.omit(pHUSJUB2025)
 
-MasterpH2025<- rbind(filtered_SaysellspHdata,filtered_TrestlepHdata, filtered_pHDSJUB2025,filtered_pHUSJUB2025)
+MasterpH2025<- rbind(filtered_SaysellspHdata,filtered_TrestlepHdata, filtered_pHDSJUB2025)
 
 
 pHPlot<- ggplot(data=MasterpH2025,aes(x=Date.Time..PDT., y=pH,
