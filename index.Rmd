@@ -28,8 +28,7 @@ DOSaysells2025$Site <- "Saysell's"
 DOSaysells2025$Site<-factor(DOSaysells2025$Site,levels=c("Saysell's","70.2 Trestle","Skutz Falls", "US JUB", "DS JUB"))
 #data.table::setnames(DOSaysells2025,'Temperature.....C..W.DO.22225592.','Temp')
 #data.table::setnames(DOSaysells2025,'Measured.DO....mg.L..W.DO.22225592.','DO')
-DOSaysells2025New <- DOSaysells2025[c(2,3,4,5)]
-filtered_SaysellsDOdata <- na.omit(DOSaysells2025New)
+filtered_SaysellsDOdata <- na.omit(DOSaysells2025)
 
 
 DOTrestle2025 <- read.csv("https://raw.githubusercontent.com/GSTsalmon/2025Data/refs/heads/main/DOTrestle2025.csv")
@@ -38,8 +37,7 @@ DOTrestle2025$Site <- "70.2 Trestle"
 DOTrestle2025$Site<-factor(DOTrestle2025$Site,levels=c("Saysell's","70.2 Trestle","Skutz Falls", "US JUB", "DS JUB"))
 #data.table::setnames(DOTrestle2025,'Temperature.....C..W.DO.22225611.','Temp')
 #data.table::setnames(DOTrestle2025,'Measured.DO....mg.L..W.DO.22225611.','DO')
-DOTrestle2025New <- DOTrestle2025[c(2,3,4,5)]
-filtered_TrestleDOdata <- na.omit(DOTrestle2025New)
+filtered_TrestleDOdata <- na.omit(DOTrestle2025)
 
 DODSJUB2025 <- read.csv("https://raw.githubusercontent.com/GSTsalmon/2025Data/refs/heads/main/DODSJUB2025.csv")
 DODSJUB2025$Date.Time..PDT. <- as.POSIXct(DODSJUB2025$Date.Time..PDT., format = "%m/%d/%Y %H:%M")
@@ -47,8 +45,8 @@ DODSJUB2025$Site <- "DS JUB"
 DODSJUB2025$Site<-factor(DODSJUB2025$Site,levels=c("Saysell's","70.2 Trestle","Skutz Falls", "US JUB", "DS JUB"))
 #data.table::setnames(DODSJUB2025,'Temperature','Temp')
 #data.table::setnames(DODSJUB2025,'Measured.DO..W.DO.22097018...mg.L','DO')
-DODSJUB2025New <- DODSJUB2025[c(2,3,4,6)]
-filtered_DODSJUB2025 <- na.omit(DODSJUB2025New)
+#DODSJUB2025New <- DODSJUB2025[c(2,3,4,6)]
+filtered_DODSJUB2025 <- na.omit(DODSJUB2025)
 
 
 DOUSJUB2025 <- read.csv("https://raw.githubusercontent.com/GSTsalmon/2025Data/refs/heads/main/DOUSJUB2025.csv")
@@ -58,7 +56,7 @@ DOUSJUB2025$Site<-factor(DOUSJUB2025$Site,levels=c("Saysell's","70.2 Trestle","S
 #data.table::setnames(DOUSJUB2025,'Temp...C..LGR.S.N..22000862..SEN.S.N..22000862.','Temp')
 #data.table::setnames(DOUSJUB2025,'DO.conc..mg.L..LGR.S.N..22000862..SEN.S.N..22000862.','DO')
 data.table::setnames(DOUSJUB2025,'Date.Time..GMT.07.00','Date.Time..PDT.')
-DOUSJUB2025New <- DOUSJUB2025[c(2, 4,3,8)]
+DOUSJUB2025New <- DOUSJUB2025[c(1,2, 4,3,5)]
 filtered_DOUSJUB2025 <- na.omit(DOUSJUB2025New)
 
 
