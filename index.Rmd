@@ -60,7 +60,15 @@ DOUSJUB2025New <- DOUSJUB2025[c(1,2, 4,3,5)]
 filtered_DOUSJUB2025 <- na.omit(DOUSJUB2025New)
 
 
-MasterDO2025<- rbind(filtered_SaysellsDOdata,filtered_TrestleDOdata,filtered_DODSJUB2025,filtered_DOUSJUB2025)
+DOSomenos2025 <- read.csv("https://raw.githubusercontent.com/GSTsalmon/2025Data/refs/heads/main/DOSomenosDS2025.csv")
+DOSomenos2025$Date.Time..GMT.07.00 <- as.POSIXct(DOSomenos2025$Date.Time..GMT.07.00, format = "%m/%d/%Y %H:%M")
+DOSomenos2025$Site <- "DS Somenos"
+DOSomenos2025$Site<-factor(DOSomenos2025$Site,levels=c("Saysell's","70.2 Trestle","Skutz Falls", "US JUB", "DS JUB", "DS Somenos"))
+data.table::setnames(DOSomenos2025,'Date.Time..GMT.07.00','Date.Time..PDT.')
+DOSomenos2025New <- DOSomenos2025[c(1,2, 4,3,5)]
+filtered_DOSomenos2025 <- na.omit(DOSomenos2025)
+
+MasterDO2025<- rbind(filtered_SaysellsDOdata,filtered_TrestleDOdata,filtered_DODSJUB2025,filtered_DOUSJUB2025,filtered_DOSomenos2025)
 
 DOplot<- ggplot(MasterDO2025, aes(x = Date.Time..PDT., y = DO, colour = Site, shape = Site)) +
   geom_point(alpha = 0.8, size = 0.9) + geom_line() +
