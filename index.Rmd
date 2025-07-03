@@ -47,11 +47,11 @@ filtered_DOUSJUB2025 <- na.omit(DOUSJUB2025)
 
 
 DOSomenos2025 <- read.csv("https://raw.githubusercontent.com/GSTsalmon/2025Data/refs/heads/main/DOSomenosDS2025.csv")
-DOSomenos2025$Date.Time..GMT.07.00 <- as.POSIXct(DOSomenos2025$Date.Time..GMT.07.00, format = "%m/%d/%Y %H:%M")
+DOSomenos2025$Date.Time..PDT. <- as.POSIXct(DOSomenos2025$Date.Time..PDT., format = "%m/%d/%Y %H:%M")
 DOSomenos2025$Site <- "DS Somenos"
-data.table::setnames(DOSomenos2025,'Date.Time..GMT.07.00','Date.Time..PDT.')
-DOSomenos2025New <- DOSomenos2025[c(1,2, 4,3,5)]
-filtered_DOSomenos2025 <- na.omit(DOSomenos2025)
+data.table::setnames(DOSomenos2025,'Temperature','Temp')
+DOSomenos2025New <- DOSomenos2025[c(1,2, 3,4,6)]
+filtered_DOSomenos2025 <- na.omit(DOSomenos2025New)
 
 DOSkutz <- read.csv("https://raw.githubusercontent.com/GSTsalmon/2025Data/refs/heads/main/DOSkutz2025.csv")
 DOSkutz$Date.Time..GMT.07.00 <- as.POSIXct(DOSkutz$Date.Time..GMT.07.00, format = "%m/%d/%Y %H:%M")
@@ -98,8 +98,9 @@ pHDSJUB2025$Site<-factor(pHDSJUB2025$Site,levels=c("Saysell's","70.2 Trestle", "
 filtered_pHDSJUB2025 <- na.omit(pHDSJUB2025)
 
 pHUSJUB2025 <- read.csv("https://raw.githubusercontent.com/GSTsalmon/2025Data/refs/heads/main/pHUSJUB2025.csv")
-pHUSJUB2025$Date.Time..PDT. <- as.POSIXct(pHUSJUB2025$Date.Time..PDT., format = "%m/%d/%Y %H:%M")
+pHUSJUB2025$DateTime <- as.POSIXct(pHUSJUB2025$DateTime, format = "%m/%d/%Y %H:%M")
 pHUSJUB2025$Site <- "US JUB"
+pHUSJUB2025<- rename(pHUSJUB2025,Date.Time..PDT.= DateTime)
 filtered_pHUSJUB2025<- na.omit(pHUSJUB2025)
 
 pHSomenos2025 <- read.csv("https://raw.githubusercontent.com/GSTsalmon/2025Data/refs/heads/main/pHSomenosDS2025.csv")
