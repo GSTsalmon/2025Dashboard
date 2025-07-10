@@ -47,11 +47,11 @@ filtered_DOUSJUB2025 <- na.omit(DOUSJUB2025)
 
 
 DOSomenos2025 <- read.csv("https://raw.githubusercontent.com/GSTsalmon/2025Data/refs/heads/main/DOSomenosDS2025.csv")
-DOSomenos2025$Date.Time..PDT. <- as.POSIXct(DOSomenos2025$Date.Time..PDT., format = "%m/%d/%Y %H:%M")
+DOSomenos2025$Date.Time..GMT.07.00 <- as.POSIXct(DOSomenos2025$Date.Time..GMT.07.00, format = "%m/%d/%Y %H:%M")
 DOSomenos2025$Site <- "DS Somenos"
-data.table::setnames(DOSomenos2025,'Temperature','Temp')
-DOSomenos2025New <- DOSomenos2025[c(1,2, 3,4,6)]
-filtered_DOSomenos2025 <- na.omit(DOSomenos2025New)
+DOSomenos2025 <- DOSomenos2025[c(1,2, 4,3,5)]
+data.table::setnames(DOSomenos2025,'Date.Time..GMT.07.00','Date.Time..PDT.')
+filtered_DOSomenos2025 <- na.omit(DOSomenos2025)
 
 DOSkutz <- read.csv("https://raw.githubusercontent.com/GSTsalmon/2025Data/refs/heads/main/DOSkutz2025.csv")
 DOSkutz$Date.Time..GMT.07.00 <- as.POSIXct(DOSkutz$Date.Time..GMT.07.00, format = "%m/%d/%Y %H:%M")
@@ -66,7 +66,7 @@ MasterDO2025$Site <- factor(MasterDO2025$Site, levels=c("Saysell's","70.2 Trestl
 
 DOplot<- ggplot(MasterDO2025, aes(x = Date.Time..PDT., y = DO, colour = Site)) +
   geom_point(alpha = 0.8, size = 0.9) + geom_line() +
-  scale_x_datetime(date_labels = "%e-%b", date_breaks = "2 day") +
+  scale_x_datetime(date_labels = "%e-%b", date_breaks = "5 day") +
   xlab("") + ylim(7,14) +
   ylab("Dissolved Oxygen (mg/l)") +
   theme_classic()
@@ -98,9 +98,9 @@ pHDSJUB2025$Site<-factor(pHDSJUB2025$Site,levels=c("Saysell's","70.2 Trestle", "
 filtered_pHDSJUB2025 <- na.omit(pHDSJUB2025)
 
 pHUSJUB2025 <- read.csv("https://raw.githubusercontent.com/GSTsalmon/2025Data/refs/heads/main/pHUSJUB2025.csv")
-pHUSJUB2025$DateTime <- as.POSIXct(pHUSJUB2025$DateTime, format = "%m/%d/%Y %H:%M")
+pHUSJUB2025$Date.Time..PDT. <- as.POSIXct(pHUSJUB2025$Date.Time..PDT., format = "%m/%d/%Y %H:%M")
 pHUSJUB2025$Site <- "US JUB"
-pHUSJUB2025<- rename(pHUSJUB2025,Date.Time..PDT.= DateTime)
+#data.table::setnames(pHUSJUB2025,'Date.Time..GMT.07.00','Date.Time..PDT.')
 filtered_pHUSJUB2025<- na.omit(pHUSJUB2025)
 
 pHSomenos2025 <- read.csv("https://raw.githubusercontent.com/GSTsalmon/2025Data/refs/heads/main/pHSomenosDS2025.csv")
@@ -123,7 +123,7 @@ MasterpH2025$Site <- factor(MasterpH2025$Site,levels=c("Saysell's","70.2 Trestle
 pHPlot<- ggplot(data=MasterpH2025,aes(x=Date.Time..PDT., y=pH,
                                      colour=Site))+
   geom_point( alpha = 0.8, size = 0.9)+ geom_line() +
-  scale_x_datetime(date_labels= "%e-%b", date_breaks="2 days")+
+  scale_x_datetime(date_labels= "%e-%b", date_breaks="5 days")+
   xlab("")+
   ylab("pH")+
   theme_classic() 
@@ -142,7 +142,7 @@ ggplotly(pHPlot)
 TempPlot<- ggplot(data=MasterDO2025,aes(x=Date.Time..PDT., y=Temp,
                                     colour=Site))+
   geom_point( alpha = 0.8, size = 0.9)+ geom_line() +
-  scale_x_datetime(date_labels= "%e-%b", date_breaks="2 days")+
+  scale_x_datetime(date_labels= "%e-%b", date_breaks="5 days")+
   xlab("")+
   ylab("Temperature") +
   theme_classic() 
