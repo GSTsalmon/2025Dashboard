@@ -5,7 +5,6 @@ output:
     orientation: rows
     vertical_layout: fill
     self_contained: false  # Change 1: Set to false to reduce HTML file size
-
 ---
 
 ```{r setup, include=FALSE}
@@ -15,11 +14,12 @@ library(tidyverse)
 library(plotly)
 ```
 
-# pH {data-orientation="rows"}
+# pH {data-orientation="rows" style="color:orange;"}
 
 ## Row {data-height="650"}
 
 ### pH
+
 ```{r}
 #pH Data
 pHSaysells2025 <- read.csv("https://raw.githubusercontent.com/GSTsalmon/Cowichan2025DataRepo/refs/heads/main/pHSaysell's2025.csv")
@@ -81,8 +81,7 @@ ggplotly(pHPlot)
 
 ```
 
-
-# DO {data-orientation="rows"}
+# DO {data-orientation="rows" style="color: black"}
 
 ## Row {data-height="650"}
 
@@ -139,9 +138,7 @@ DOplot<- ggplot(MasterDO2025, aes(x = Date.Time..PDT., y = DO, colour = Site)) +
 ggplotly(DOplot)
 ```
 
-
-
-# Temperature {data-orientation="rows"}
+# Temperature {data-orientation="rows" style="color: navy"}
 
 ## Row {data-height="650"}
 
@@ -157,4 +154,3 @@ TempPlot<- ggplot(data=MasterDO2025,aes(x=Date.Time..PDT., y=Temp,
   theme_classic() 
 ggplotly(TempPlot)
 ```
-
