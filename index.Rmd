@@ -35,10 +35,23 @@ pHTrestle2025$Site <- "70.2 Trestle (km 40)"
 pHTrestle2025<- rename(pHTrestle2025, DateTime=Date.Time..PDT.)
 filtered_TrestlepHdata <- select(pHTrestle2025, DateTime, Temp, pH, Site)
 
-#SoG logger's data is used for the pH
+#Skutz Realtime data form WQData Live
+RealtimeData <- read.csv("https://raw.githubusercontent.com/GSTsalmon/Cowichan2025DataRepo/refs/heads/main/SkutzRealTime.csv")
+RealtimeData<- slice(RealtimeData, -c(1:2))
+RealtimeData<- rename(RealtimeData, DateTime=X, Temp=Cowichan.River.Skutz.Falls ,pH=Cowichan.River.Skutz.Falls.1, 
+                      DO=Cowichan.River.Skutz.Falls.2)
+RealtimeData <- RealtimeData %>% mutate_at(vars(Temp, pH, DO), as.numeric)
+
+RealtimeData$DateTime<- as.POSIXct(RealtimeData$DateTime, format = "%m/%d/%Y %H:%M")
+RealtimeData$Site <- "Skutz Falls - 1 (km 32)"
+filtered_RealtimeData <- select(RealtimeData, DateTime, Temp, pH, Site)
+
+
+
+#SoG logger's data 
 pHSkutz <- read.csv("https://raw.githubusercontent.com/GSTsalmon/Cowichan2025DataRepo/refs/heads/main/pHSktuz2.csv")
 pHSkutz$DateTime <- as.POSIXct(pHSkutz$DateTime, format = "%m/%d/%Y %H:%M")
-pHSkutz$Site <- "Skutz Falls (km 32)"
+pHSkutz$Site <- "Skutz Falls - 2 (km 32)"
 filtered_pHSkutz2025 <- select(pHSkutz, DateTime, Temp, pH, Site)
 
 pHUSJUB2025 <- read.csv("https://raw.githubusercontent.com/GSTsalmon/Cowichan2025DataRepo/refs/heads/main/pHUSJUB2025.csv")
@@ -63,10 +76,10 @@ pHSomenos2025<- rename(pHSomenos2025, DateTime=Date.Time..PDT. )
 filtered_pHSomenos2025 <- select(pHSomenos2025,  DateTime, Temp, pH, Site)
 
 
-MasterpH2025<- rbind(filtered_SaysellspHdata,filtered_TrestlepHdata,filtered_pHSkutz2025, filtered_pHUSJUB2025,filtered_pHDSJUB2025,  filtered_pHSomenos2025)
+MasterpH2025<- rbind(filtered_SaysellspHdata,filtered_TrestlepHdata,filtered_RealtimeData, filtered_pHSkutz2025, filtered_pHUSJUB2025,filtered_pHDSJUB2025,  filtered_pHSomenos2025)
 
-MasterpH2025$Site <- factor(MasterpH2025$Site,levels=c("Saysell's (km 46)","70.2 Trestle (km 40)", "Skutz Falls (km 32)","US JUB (km 5)",
-                                                       "DS JUB (km 4)","DS Somenos (km 3)"))
+MasterpH2025$Site <- factor(MasterpH2025$Site,levels=c("Saysell's (km 46)","70.2 Trestle (km 40)", "Skutz Falls - 1 (km 32)","Skutz Falls - 2 (km 32)","US JUB (km 5)", "DS JUB (km 4)","DS Somenos (km 3)"))
+                                                       
 
 
 pHPlot<- ggplot(data=MasterpH2025,aes(x=DateTime, y=pH,
@@ -91,24 +104,41 @@ ggplotly(pHPlot)
 DOSaysells2025 <- read.csv("https://raw.githubusercontent.com/GSTsalmon/Cowichan2025DataRepo/refs/heads/main/DOSaysell's2025.csv")
 DOSaysells2025$Date.Time..PDT. <- as.POSIXct(DOSaysells2025$Date.Time..PDT., format = "%m/%d/%Y %H:%M")
 DOSaysells2025$Site <- "Saysell's"
-filtered_SaysellsDOdata <- na.omit(DOSaysells2025)
+filtered_SaysellsDOdata <- select(DOSaysells2025,Date.Time..PDT.,Temp, DO, Site)
 
 
 DOTrestle2025 <- read.csv("https://raw.githubusercontent.com/GSTsalmon/Cowichan2025DataRepo/refs/heads/main/DOTrestle2025.csv")
 DOTrestle2025$Date.Time..PDT. <- as.POSIXct(DOTrestle2025$Date.Time..PDT., format = "%m/%d/%Y %H:%M")
 DOTrestle2025$Site <- "70.2 Trestle"
-filtered_TrestleDOdata <- na.omit(DOTrestle2025)
+filtered_TrestleDOdata <- select(DOTrestle2025, Date.Time..PDT.,Temp, DO, Site)
+
+
+
+DOSkutzRealTime<- read.csv("https://raw.githubusercontent.com/GSTsalmon/Cowichan2025DataRepo/refs/heads/main/SkutzRealTime.csv")
+
+DOSkutzRealTime<- slice(DOSkutzRealTime, -c(1:2))
+
+DOSkutzRealTime<- rename(DOSkutzRealTime, Date.Time..PDT.=X, Temp=Cowichan.River.Skutz.Falls ,pH=Cowichan.River.Skutz.Falls.1, 
+                      DO=Cowichan.River.Skutz.Falls.2)
+DOSkutzRealTime <- DOSkutzRealTime %>% mutate_at(vars(Temp, pH, DO), as.numeric)
+
+DOSkutzRealTime$Date.Time..PDT.<- as.POSIXct(DOSkutzRealTime$Date.Time..PDT., format = "%m/%d/%Y %H:%M")
+DOSkutzRealTime$Site <- "Skutz Falls - 1"
+filtered_DOSkutzRealTime <- select(DOSkutzRealTime, Date.Time..PDT., Temp, DO, Site)
+
+                                   
 
 DOUSJUB2025 <- read.csv("https://raw.githubusercontent.com/GSTsalmon/Cowichan2025DataRepo/refs/heads/main/DOUSJUB2025.csv")
 DOUSJUB2025$Date.Time..GMT.07.00 <- as.POSIXct(DOUSJUB2025$Date.Time..GMT.07.00, format = "%m/%d/%Y %H:%M")
 DOUSJUB2025$Site <- "US JUB"
 DOUSJUB2025<- rename(DOUSJUB2025,Date.Time..PDT.= Date.Time..GMT.07.00)
-filtered_DOUSJUB2025 <- na.omit(DOUSJUB2025)
+filtered_DOUSJUB2025 <- select(DOUSJUB2025,Date.Time..PDT., Temp, DO, Site)
+filtered_DOUSJUB2025<- na.omit(filtered_DOUSJUB2025)
 
 DODSJUB2025 <- read.csv("https://raw.githubusercontent.com/GSTsalmon/Cowichan2025DataRepo/refs/heads/main/DODSJUB2025.csv")
 DODSJUB2025$Date.Time..PDT. <- as.POSIXct(DODSJUB2025$Date.Time..PDT., format = "%m/%d/%Y %H:%M")
 DODSJUB2025$Site <- "DS JUB"
-filtered_DODSJUB2025 <- na.omit(DODSJUB2025)
+filtered_DODSJUB2025 <- select(DODSJUB2025,Date.Time..PDT., Temp, DO, Site)
 
 
 DOSomenos2025 <- read.csv("https://raw.githubusercontent.com/GSTsalmon/Cowichan2025DataRepo/refs/heads/main/DOSomenosDS2025.csv")
@@ -116,18 +146,14 @@ DOSomenos2025$Date.Time..GMT.07.00 <- as.POSIXct(DOSomenos2025$Date.Time..GMT.07
 DOSomenos2025$Site <- "DS Somenos"
 DOSomenos2025 <- DOSomenos2025[c(1,2, 4,3,5)]
 data.table::setnames(DOSomenos2025,'Date.Time..GMT.07.00','Date.Time..PDT.')
-filtered_DOSomenos2025 <- na.omit(DOSomenos2025)
-
-DOSkutz <- read.csv("https://raw.githubusercontent.com/GSTsalmon/Cowichan2025DataRepo/refs/heads/main/DOSkutz2025.csv")
-DOSkutz$Date.Time..GMT.07.00 <- as.POSIXct(DOSkutz$Date.Time..GMT.07.00, format = "%m/%d/%Y %H:%M")
-DOSkutz$Site <- "Skutz Falls"
-data.table::setnames(DOSkutz,'Date.Time..GMT.07.00','Date.Time..PDT.')
-filtered_DOSkutz2025 <- na.omit(DOSkutz)
+filtered_DOSomenos2025 <- select(DOSomenos2025,Date.Time..PDT., Temp, DO, Site)
 
 
-MasterDO2025<- rbind(filtered_SaysellsDOdata,filtered_TrestleDOdata,filtered_DOSkutz2025,filtered_DOUSJUB2025,filtered_DODSJUB2025,filtered_DOSomenos2025)
 
-MasterDO2025$Site <- factor(MasterDO2025$Site, levels=c("Saysell's","70.2 Trestle", "Skutz Falls", "US JUB", "DS JUB", "DS Somenos" ))
+
+MasterDO2025<- rbind(filtered_SaysellsDOdata,filtered_TrestleDOdata,filtered_DOSkutzRealTime, filtered_DOUSJUB2025,filtered_DODSJUB2025,filtered_DOSomenos2025)
+
+MasterDO2025$Site <- factor(MasterDO2025$Site, levels=c("Saysell's","70.2 Trestle", "Skutz Falls - 1", "US JUB", "DS JUB", "DS Somenos" ))
 
 DOplot<- ggplot(MasterDO2025, aes(x = Date.Time..PDT., y = DO, colour = Site)) +
   geom_point(alpha = 0.8, size = 0.9) + geom_line() +
