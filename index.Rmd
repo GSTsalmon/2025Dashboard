@@ -133,7 +133,6 @@ DOUSJUB2025$Date.Time..GMT.07.00 <- as.POSIXct(DOUSJUB2025$Date.Time..GMT.07.00,
 DOUSJUB2025$Site <- "US JUB"
 DOUSJUB2025<- rename(DOUSJUB2025,Date.Time..PDT.= Date.Time..GMT.07.00)
 filtered_DOUSJUB2025 <- select(DOUSJUB2025,Date.Time..PDT., Temp, DO, Site)
-filtered_DOUSJUB2025<- na.omit(filtered_DOUSJUB2025)
 
 DODSJUB2025 <- read.csv("https://raw.githubusercontent.com/GSTsalmon/Cowichan2025DataRepo/refs/heads/main/DODSJUB2025.csv")
 DODSJUB2025$Date.Time..PDT. <- as.POSIXct(DODSJUB2025$Date.Time..PDT., format = "%m/%d/%Y %H:%M")
@@ -156,7 +155,7 @@ MasterDO2025<- rbind(filtered_SaysellsDOdata,filtered_TrestleDOdata,filtered_DOS
 MasterDO2025$Site <- factor(MasterDO2025$Site, levels=c("Saysell's","70.2 Trestle", "Skutz Falls - Remote", "US JUB", "DS JUB", "DS Somenos" ))
 
 DOplot<- ggplot(MasterDO2025, aes(x = Date.Time..PDT., y = DO, colour = Site)) +
-  geom_point(alpha = 0.8, size = 0.9) + geom_line() +
+ geom_point(alpha = 0.8, size = 0.9)+   geom_line() + 
   scale_x_datetime(date_labels = "%e-%b", date_breaks = "5 day") +
   xlab("") + ylim(7,14) +
   ylab("Dissolved Oxygen (mg/l)") +
