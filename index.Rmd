@@ -123,7 +123,7 @@ DOSkutzRealTime<- rename(DOSkutzRealTime, Date.Time..PDT.=X, Temp=Cowichan.River
 DOSkutzRealTime <- DOSkutzRealTime %>% mutate_at(vars(Temp, pH, DO), as.numeric)
 
 DOSkutzRealTime$Date.Time..PDT.<- as.POSIXct(DOSkutzRealTime$Date.Time..PDT., format = "%m/%d/%Y %H:%M")
-DOSkutzRealTime$Site <- "Skutz Falls - 1"
+DOSkutzRealTime$Site <- "Skutz Falls - Remote"
 filtered_DOSkutzRealTime <- select(DOSkutzRealTime, Date.Time..PDT., Temp, DO, Site)
 
                                    
@@ -153,7 +153,7 @@ filtered_DOSomenos2025 <- select(DOSomenos2025,Date.Time..PDT., Temp, DO, Site)
 
 MasterDO2025<- rbind(filtered_SaysellsDOdata,filtered_TrestleDOdata,filtered_DOSkutzRealTime, filtered_DOUSJUB2025,filtered_DODSJUB2025,filtered_DOSomenos2025)
 
-MasterDO2025$Site <- factor(MasterDO2025$Site, levels=c("Saysell's","70.2 Trestle", "Skutz Falls - 1", "US JUB", "DS JUB", "DS Somenos" ))
+MasterDO2025$Site <- factor(MasterDO2025$Site, levels=c("Saysell's","70.2 Trestle", "Skutz Falls - Remote", "US JUB", "DS JUB", "DS Somenos" ))
 
 DOplot<- ggplot(MasterDO2025, aes(x = Date.Time..PDT., y = DO, colour = Site)) +
   geom_point(alpha = 0.8, size = 0.9) + geom_line() +
