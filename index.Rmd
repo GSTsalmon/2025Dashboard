@@ -4,6 +4,7 @@ output:
   flexdashboard::flex_dashboard:
     orientation: rows
     vertical_layout: fill
+    logo: SCA.png
     self_contained: false  # Change 1: Set to false to reduce HTML file size
 ---
 
