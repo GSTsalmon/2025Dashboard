@@ -52,7 +52,7 @@ filtered_RealtimeData <- select(RealtimeData, DateTime, Temp, pH, Site)
 #SoG logger's data 
 pHSkutz <- read.csv("https://raw.githubusercontent.com/GSTsalmon/Cowichan2025DataRepo/refs/heads/main/pHSktuz2.csv")
 pHSkutz$DateTime <- as.POSIXct(pHSkutz$DateTime, format = "%m/%d/%Y %H:%M")
-pHSkutz$Site <- "Skutz Falls - Continious (km 32)"
+pHSkutz$Site <- "Skutz Falls - continuous (km 32)"
 filtered_pHSkutz2025 <- select(pHSkutz, DateTime, Temp, pH, Site)
 
 pHUSJUB2025 <- read.csv("https://raw.githubusercontent.com/GSTsalmon/Cowichan2025DataRepo/refs/heads/main/pHUSJUB2025.csv")
@@ -79,7 +79,7 @@ filtered_pHSomenos2025 <- select(pHSomenos2025,  DateTime, Temp, pH, Site)
 
 MasterpH2025<- rbind(filtered_SaysellspHdata,filtered_TrestlepHdata,filtered_RealtimeData, filtered_pHSkutz2025, filtered_pHUSJUB2025,filtered_pHDSJUB2025,  filtered_pHSomenos2025)
 
-MasterpH2025$Site <- factor(MasterpH2025$Site,levels=c("Saysell's (km 46)","70.2 Trestle (km 40)", "Skutz Falls - Remote (km 32)","Skutz Falls - Continious (km 32)","US JUB (km 5)", "DS JUB (km 4)","DS Somenos (km 3)"))
+MasterpH2025$Site <- factor(MasterpH2025$Site,levels=c("Saysell's (km 46)","70.2 Trestle (km 40)", "Skutz Falls - Remote (km 32)","Skutz Falls - continuous (km 32)","US JUB (km 5)", "DS JUB (km 4)","DS Somenos (km 3)"))
                                                        
 
 
