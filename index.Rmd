@@ -15,11 +15,11 @@ library(tidyverse)
 library(plotly)
 ```
 
-# pH {data-orientation="rows" style="color:orange;"}
+# **pH** {data-orientation="rows" style="color: black;"}
 
 ## Row {data-height="650"}
 
-### pH
+### **Data provided by DFO Restoration Centre of Expertise, Province of BC, and DFO Stock Assessment**
 
 ```{r}
 #pH Data
@@ -80,9 +80,10 @@ filtered_pHSomenos2025 <- select(pHSomenos2025,  DateTime, Temp, pH, Site)
 MasterpH2025<- rbind(filtered_SaysellspHdata,filtered_TrestlepHdata,filtered_RealtimeData, filtered_pHSkutz2025, filtered_pHUSJUB2025,filtered_pHDSJUB2025,  filtered_pHSomenos2025)
 
 MasterpH2025$Site <- factor(MasterpH2025$Site,levels=c("Saysell's (km 46)","70.2 Trestle (km 40)", "Skutz Falls - Remote (km 32)","Skutz Falls - continuous (km 32)","US JUB (km 5)", "DS JUB (km 4)","DS Somenos (km 3)"))
-                                                       
 
+```
 
+```{r}
 pHPlot<- ggplot(data=MasterpH2025,aes(x=DateTime, y=pH,
                                      colour=Site))+
   geom_point( alpha = 0.8, size = 0.9)+ geom_line() +
@@ -92,10 +93,11 @@ pHPlot<- ggplot(data=MasterpH2025,aes(x=DateTime, y=pH,
   theme_classic() 
  
 ggplotly(pHPlot)
-
 ```
 
-# DO {data-orientation="rows" style="color: black"}
+
+
+# **DO** {data-orientation="rows" style="color: black"}
 
 ## Row {data-height="650"}
 
@@ -164,7 +166,7 @@ DOplot<- ggplot(MasterDO2025, aes(x = Date.Time..PDT., y = DO, colour = Site)) +
 ggplotly(DOplot)
 ```
 
-# Temperature {data-orientation="rows" style="color: navy"}
+# **Temperature** {data-orientation="rows"}
 
 ## Row {data-height="650"}
 
