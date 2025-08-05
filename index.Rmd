@@ -89,7 +89,7 @@ pHPlot<- ggplot(data=MasterpH2025,aes(x=DateTime, y=pH,
   geom_point( alpha = 0.8, size = 0.9)+ geom_line() +
   scale_x_datetime(date_labels= "%e-%b", date_breaks="5 days")+
   xlab("")+
-  ylab("pH")+
+  ylab("pH")+ ylim(6,10)+
   theme_classic() 
  
 ggplotly(pHPlot)
@@ -160,7 +160,7 @@ MasterDO2025$Site <- factor(MasterDO2025$Site, levels=c("Saysell's","70.2 Trestl
 DOplot<- ggplot(MasterDO2025, aes(x = Date.Time..PDT., y = DO, colour = Site)) +
  geom_point(alpha = 0.8, size = 0.9)+   geom_line() + 
   scale_x_datetime(date_labels = "%e-%b", date_breaks = "5 day") +
-  xlab("") + ylim(7,14) +
+  xlab("") + ylim(2,16) +
   ylab("Dissolved Oxygen (mg/l)") +
   theme_classic()
 ggplotly(DOplot)
