@@ -85,7 +85,7 @@ MasterpH2025$Site <- factor(MasterpH2025$Site,levels=c("Saysell's (km 46)","70.2
 
 ```{r}
 pHPlot<- ggplot(data=MasterpH2025,aes(x=DateTime, y=pH,
-                                     colour=Site))+
+                                     colour=Site, shape=Site))+
   geom_point( alpha = 0.8, size = 0.9)+ geom_line() +
   scale_x_datetime(date_labels= "%e-%b", date_breaks="5 days")+
   xlab("")+
@@ -157,7 +157,7 @@ MasterDO2025<- rbind(filtered_SaysellsDOdata,filtered_TrestleDOdata,filtered_DOS
 
 MasterDO2025$Site <- factor(MasterDO2025$Site, levels=c("Saysell's","70.2 Trestle", "Skutz Falls - Remote", "US JUB", "DS JUB", "DS Somenos" ))
 
-DOplot<- ggplot(MasterDO2025, aes(x = Date.Time..PDT., y = DO, colour = Site)) +
+DOplot<- ggplot(MasterDO2025, aes(x = Date.Time..PDT., y = DO, colour = Site, shape=Site)) +
  geom_point(alpha = 0.8, size = 0.9)+   geom_line() + 
   scale_x_datetime(date_labels = "%e-%b", date_breaks = "5 day") +
   xlab("") + ylim(2,16) +
@@ -174,7 +174,7 @@ ggplotly(DOplot)
 
 ```{r}
 TempPlot<- ggplot(data=MasterDO2025,aes(x=Date.Time..PDT., y=Temp,
-                                    colour=Site))+
+                                    colour=Site, shape=Site))+
   geom_point( alpha = 0.8, size = 0.9)+ geom_line() +
   scale_x_datetime(date_labels= "%e-%b", date_breaks="5 days")+
   xlab("")+
